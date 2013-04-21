@@ -26,20 +26,20 @@ def filtrer(srcHabilitations, dstHabilitations, srcHabilitationsEtab, dstHabilit
     print(tabHabEta)
     
     # recherche les doublons et les extraits
-    doublonListe = searchDoublonHabilitations(tabHab)
+    tabHab,listeDoublon = searchDoublonHabilitations(tabHab)
     
     # ajoute les id aux habilitations
-    ajoutID(doublonListe[0])
+    ajoutID(tabHab)
     
-    tabHabEta.extend(convertHabToHabEtab(doublonListe[1]))
+    tabHabEta.extend(convertHabToHabEtab(listeDoublon))
     
     # recherche doublon habilitation_etablissements
     searchDoublonHabilitationsEtablissement(tabHabEta)
     
-    verifExistenceUtilisateur(doublonListe[0],tabHabEta)
+    verifExistenceUtilisateur(tabHab,tabHabEta)
     
     # Ecriture des donnees
-    ecritureDonnee(doublonListe[0],dstHabilitations, tabHabEta, dstHabilitationsEtab)
+    ecritureDonnee(tabHab,dstHabilitations, tabHabEta, dstHabilitationsEtab)
     
     print("Fichier d'habilitation final:")
     print(tabHab)
@@ -56,7 +56,7 @@ def searchDoublonHabilitations(liste): # recherche les doublons de la liste, les
             liste.remove(liste[i+1]) 
         else: # gestion des triplets
             i=i+1
-    return [liste,listeDoublon]
+    return liste,listeDoublon
 
 def ajoutID(liste):
     """ ajout d'un ID à chaque entrée de la liste """
