@@ -41,8 +41,8 @@ def searchDoublonHabilitations(liste): # recherche les doublons de la liste, les
         if liste[i][0] == liste[i+1][0]: # si l'index 0 de l'elt suivant est identique au courant, on supprime l'élément de la liste et on l ajoute dans la liste des doublons
             listeDoublon.append(liste[i+1][0:])
             liste.remove(liste[i+1]) 
-        else: # gestion des triplets
-            i=i+1
+            continue
+        i=i+1
     return liste,listeDoublon
 
 def ajoutID(liste):
@@ -57,8 +57,8 @@ def searchDoublonHabilitationsEtablissement(liste): # recherche les doublons de 
     while i<len(liste)-1:
         if liste[i][0] == liste[i+1][0] and liste[i][1] == liste[i+1][1]: # si l'index 0 de l'elt suivant est identique au courant, on supprime l'élément de la liste et on l ajoute dans la liste des doublons
             liste.remove(liste[i+1])
-        else:
-            i=i+1
+            continue
+        i=i+1
     return liste
 
 def initHabilitationsCsvOut(srcHabilitations, dstHabilitations):
