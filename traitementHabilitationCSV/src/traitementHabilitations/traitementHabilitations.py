@@ -12,19 +12,15 @@ def filtrer(srcHabilitations, dstHabilitations, srcHabilitationsEtab, dstHabilit
     tabHab = initHabilitationsCsvOut(srcHabilitations, dstHabilitations)
     tabHabEta = initHabilitationsEtabCsvOut(srcHabilitationsEtab, dstHabilitationsEtab)
         
-    print("Fichier d'habilitation initial:")    
-    print(tabHab)
-    print("Fichier de définition du périmètre géographique initial:")
-    print(tabHabEta)
-    
+    print("Nombre d'entrée du fichier d'habilitation initial:")    
+    print(len(tabHab))
+    print("Nombre d'entrée du fichier de définition du périmètre géographique initial:")
+    print(len(tabHabEta))
     # recherche les doublons et les extraits
     tabHab,listeDoublon = searchDoublonHabilitations(tabHab)
-    
     # ajoute les id aux habilitations
     ajoutID(tabHab)
-    
     tabHabEta.extend(convertHabToHabEtab(listeDoublon))
-    
     # recherche doublon habilitation_etablissements
     searchDoublonHabilitationsEtablissement(tabHabEta)
     
@@ -32,10 +28,10 @@ def filtrer(srcHabilitations, dstHabilitations, srcHabilitationsEtab, dstHabilit
     
     # Ecriture des donnees
     ecritureDonnee(tabHab,dstHabilitations, tabHabEta, dstHabilitationsEtab)
-    print("Fichier d'habilitation final:")
-    print(tabHab)
-    print("Fichier de définition du périmètre géographique final:")
-    print(tabHabEta)
+    print("Nombre d'entrée du fichier d'habilitation final:")
+    print(len(tabHab))
+    print("Nombre d'entrée du fichier de définition du périmètre géographique final:")
+    print(len(tabHabEta))
     
 def searchDoublonHabilitations(liste): # recherche les doublons de la liste, les supprimes de la liste et ajoutes à la liste des doublons
     listeDoublon=[] # liste de doublon
@@ -43,7 +39,7 @@ def searchDoublonHabilitations(liste): # recherche les doublons de la liste, les
     i=0
     while i<len(liste)-1:
         if liste[i][0] == liste[i+1][0]: # si l'index 0 de l'elt suivant est identique au courant, on supprime l'élément de la liste et on l ajoute dans la liste des doublons
-            listeDoublon.append(liste[i+1])
+            listeDoublon.append(liste[i+1][0:])
             liste.remove(liste[i+1]) 
         else: # gestion des triplets
             i=i+1
@@ -55,7 +51,6 @@ def ajoutID(liste):
     for item in liste:
         i=i+1
         item.insert(0,str(i))
-        
 def searchDoublonHabilitationsEtablissement(liste): # recherche les doublons de la liste, les supprimes de la liste et ajoutes à la liste des doublons
     liste.sort() # liste trié
     i=0
@@ -72,19 +67,19 @@ def initHabilitationsCsvOut(srcHabilitations, dstHabilitations):
     entete = srcHabilitations.readline().rstrip('\n\r').split(";")
  
     # D�termine l'index des diff�rents champs qui nous sont utiles
-    usernameidx = entete.index("username")
-    profilidx = entete.index("profil")
-    campusidx = entete.index("campus")
-    etabidx = entete.index("etab")
+    usernameidx = entete.index("LoginAD")
+    profilidx = entete.index("Profil")
+    campusidx = entete.index("Campus")
+    etabidx = entete.index("Etablissement")
 
 
     # Ecrit l'en-t�te
-    dstHabilitations.write(entete[1]+";"+entete[2]+";"+entete[3]+";"+entete[4]+"\n")
+    dstHabilitations.write(entete[0]+";"+entete[1]+";"+entete[2]+";"+entete[3]+";"+entete[4]+"\n")
     # convertit le file input entableau
     tab = []
     for ligne in srcHabilitations:
         donnees = ligne.rstrip('\n\r').split(";")
-        tab.append([donnees[usernameidx], donnees[profilidx], donnees[campusidx], donnees[etabidx]])
+        tab.append([donnees[usernameidx].upper(), donnees[profilidx], donnees[campusidx], donnees[etabidx]])
      
     return tab
 
@@ -94,9 +89,8 @@ def initHabilitationsEtabCsvOut(srcHabilitationsEtab, dstHabilitationsEtab):
     entete = srcHabilitationsEtab.readline().rstrip('\n\r').split(";")
  
     # D�termine l'index des diff�rents champs qui nous sont utiles
-    usernameidx = entete.index("username")
-    campusidx = entete.index("campus")
-
+    usernameidx = entete.index("Login")
+    campusidx = entete.index("Etablissement")
 
     # Ecrit l'en-t�te
     dstHabilitationsEtab.write(entete[0]+";"+entete[1]+"\n")
@@ -104,7 +98,7 @@ def initHabilitationsEtabCsvOut(srcHabilitationsEtab, dstHabilitationsEtab):
     tab = []
     for ligne in srcHabilitationsEtab:
         donnees = ligne.rstrip('\n\r').split(";")
-        tab.append([donnees[usernameidx], donnees[campusidx]])
+        tab.append([donnees[usernameidx].upper(), donnees[campusidx]])
      
     return tab
 

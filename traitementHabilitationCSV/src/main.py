@@ -19,9 +19,9 @@ import traitementHabilitations.traitementHabilitations as th
 #############################################################################
 
 # Ouverture des fichiers Habilitations.csv et habilitation_etablissement.csv
-racine = "C:/Users/Thomas/Documents/python/"
-sourceHabilitations = open(racine+"inTest.csv", "r")
-sourceHabilitationEtablissemet = open(racine+"inTest2.csv", "r") 
+racine = "C:/Users/5936005/Documents/ScriptPython/python-master/traitementHabilitationCSV/src/"
+sourceHabilitations = open(racine+"Habilitations.csv", "r")
+sourceHabilitationEtablissemet = open(racine+"Habilitations_etablissements.csv", "r") 
 
 # Ouverture du fichier destinationHabilitations
 destinationHabilitations = open(sourceHabilitations.name+".out", "w")
