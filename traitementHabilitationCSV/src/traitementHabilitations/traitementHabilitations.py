@@ -79,7 +79,7 @@ def initHabilitationsCsvOut(srcHabilitations, dstHabilitations):
     tab = []
     for ligne in srcHabilitations:
         donnees = ligne.rstrip('\n\r').split(";")
-        tab.append([donnees[usernameidx].upper(), donnees[profilidx], donnees[campusidx], donnees[etabidx]])
+        tab.append([donnees[usernameidx], donnees[profilidx], donnees[campusidx], donnees[etabidx]])
      
     return tab
 
@@ -98,7 +98,7 @@ def initHabilitationsEtabCsvOut(srcHabilitationsEtab, dstHabilitationsEtab):
     tab = []
     for ligne in srcHabilitationsEtab:
         donnees = ligne.rstrip('\n\r').split(";")
-        tab.append([donnees[usernameidx].upper(), donnees[campusidx]])
+        tab.append([donnees[usernameidx], donnees[campusidx]])
      
     return tab
 
