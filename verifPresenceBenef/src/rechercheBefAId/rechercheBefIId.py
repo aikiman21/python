@@ -54,12 +54,12 @@ def isBefV2InV3Complete(tabBefV2,tabBefV3):
         #print(str(i)+"/"+str(len(tabBefV2)))
         test = False
         for ligneV3 in tabBefV3:
-            if ligneV2 == ligneV3:
+            if ligneV2[0] == ligneV3[0]:
                 test = True
                 break
                       
         if test == False:
-            print('le beneficiare {} est inexistant'.format(ligneV2))    
+            print('le beneficiare {} est inexistant'.format(ligneV2[0]))    
               
               
    
